@@ -23,11 +23,11 @@ from stats.trust_engine import (
 class TestSRM:
     def test_balanced_allocation_is_not_srm(self):
         result = srm_chi_square(control_n=10000, treatment_n=10005)
-        assert result.is_srm is False
+        assert not result.is_srm
 
     def test_obvious_bias_is_srm(self):
         result = srm_chi_square(control_n=8000, treatment_n=12000)
-        assert result.is_srm is True
+        assert result.is_srm
         assert result.p_value < 0.001
 
     def test_observed_ratio_computed_correctly(self):
@@ -38,12 +38,12 @@ class TestSRM:
 class TestZTest:
     def test_identical_rates_not_significant(self):
         result = two_proportion_ztest(1000, 10000, 1000, 10000)
-        assert result.is_significant is False
+        assert not result.is_significant
         assert result.absolute_lift == pytest.approx(0.0, abs=1e-9)
 
     def test_large_true_lift_is_significant(self):
         result = two_proportion_ztest(1000, 10000, 1500, 10000)
-        assert result.is_significant is True
+        assert result.is_significant
         assert result.absolute_lift > 0
 
     def test_confidence_interval_contains_point_estimate(self):
@@ -56,13 +56,13 @@ class TestNoveltyEffect:
         days = np.arange(10)
         lift = np.full(10, 0.05)
         result = novelty_effect_score(days, lift)
-        assert result["is_novelty_effect"] is False
+        assert not result["is_novelty_effect"]
 
     def test_decaying_lift_is_novelty(self):
         days = np.arange(14)
         lift = 0.10 * np.exp(-0.3 * days)
         result = novelty_effect_score(days, lift)
-        assert result["is_novelty_effect"] is True
+        assert result["is_novelty_effect"]
         assert result["slope"] < 0
 
 
