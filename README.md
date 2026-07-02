@@ -160,5 +160,3 @@ experiment-trust-engine/
 ## License
 
 MIT — see [LICENSE](LICENSE).
-README-3.md
-Displaying README-3.md.
