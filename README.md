@@ -1,3 +1,5 @@
+![CI](https://github.com/falgun954/experiment-trust-engine/actions/workflows/ci.yml/badge.svg)
+
 # Experiment Trust Engine
 
 **Can we actually trust this A/B test result?** Most experimentation
@@ -158,3 +160,5 @@ experiment-trust-engine/
 ## License
 
 MIT — see [LICENSE](LICENSE).
+README-3.md
+Displaying README-3.md.
