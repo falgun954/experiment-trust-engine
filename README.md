@@ -64,6 +64,11 @@ python src/pipeline.py                   # runs SRM, z-test, novelty, trust scor
 python src/load_warehouse.py             # loads everything into SQLite for SQL validation
 ```
 
+**No Power BI Desktop access?** `excel/Experiment_Trust_Engine.xlsx` is a
+fully live, formula-driven Excel rebuild of the same report — 348 real
+formulas (SRM chi-square, two-proportion z-test, composite Trust Score),
+zero errors, no Power BI installation required. See `excel/README.md`.
+
 Run the analytics SQL directly:
 ```bash
 sqlite3 data/warehouse.db < sql/analytics/trust_analytics.sql
@@ -126,6 +131,10 @@ experiment-trust-engine/
 │   ├── views/analysis_views.sql      # allocation, conversion, divergence views
 │   └── analytics/trust_analytics.sql # window functions, leaderboards, audit queries
 ├── dax/measures.md                   # full DAX measure library for Power BI
+├── excel/                            # live-formula Excel rebuild (no Power BI needed)
+│   ├── Experiment_Trust_Engine.xlsx
+│   ├── build_excel.py
+│   └── build_excel_inputs.py
 ├── docs/
 │   ├── trust_score_methodology.md    # weighting rationale, limitations
 │   └── metric_lineage.md             # governance documentation
