@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+
+      - name: Generate synthetic data
+        run: python src/generation/generate_data.py
+
+      - name: Run trust engine pipeline
+        run: python src/pipeline.py
+
+      - name: Load SQL warehouse
+        run: python src/load_warehouse.py
+
+      - name: Run unit tests
+        run: pytest tests/ -v
+
+      - name: Validate analytics SQL runs cleanly
+        run: |
+          python3 - <<'EOF'
+          import sqlite3
+          sql = open("sql/analytics/trust_analytics.sql").read()
+          lines = [l for l in sql.splitlines() if not l.strip().startswith('--')]
+          clean = "\n".join(l.split('--')[0] if '--' in l else l for l in lines)
+          queries = [q.strip() for q in clean.split(';') if q.strip()]
+          conn = sqlite3.connect("data/warehouse.db")
+          for i, q in enumerate(queries, 1):
+              rows = conn.execute(q).fetchall()
+              print(f"Query {i}: {len(rows)} rows returned")
+          EOF

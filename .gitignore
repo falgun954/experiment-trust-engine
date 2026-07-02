@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Generated data (reproducible via generate_data.py — not source-controlled)
+data/raw/*
+data/processed/*
+data/warehouse.db
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Power BI (large binary — track via Git LFS if you commit it)
+# Comment this out if you intentionally want to commit the .pbix
+*.pbix
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
