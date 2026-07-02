@@ -96,6 +96,22 @@ shouldn't be trusted:
 dashboard that only checks p-values — the Trust Score catches all three
 underlying problems at once.
 
+## Report pages
+
+*(Mockups rendered from the real pipeline output — see `powerbi/BUILD_INSTRUCTIONS.md` to assemble the actual interactive `.pbix`.)*
+
+**Experiment Overview** — Trust Score leaderboard and verdicts at a glance
+![Experiment Overview](docs/screenshots/01_experiment_overview.png)
+
+**Metric Definition Comparison** — quantifies how much "active user" swings by definition
+![Metric Definition Comparison](docs/screenshots/02_metric_definition_comparison.png)
+
+**Statistical Deep-Dive** — novelty decay curves, CIs, and the full audit trail
+![Statistical Deep-Dive](docs/screenshots/03_statistical_deep_dive.png)
+
+**Metric Lineage** — documentation-as-a-dashboard for every metric definition version
+![Metric Lineage](docs/screenshots/04_metric_lineage.png)
+
 ## Project structure
 
 ```
